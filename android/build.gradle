@@ -1,0 +1,44 @@
+buildscript {
+    ext.kotlin_version = '1.6.10'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url 'https://paravision.mycloudrepo.io/repositories/android-sdk-kotlin'
+            credentials {
+                username "6675f2ce-2d8d-4eac-a536-917c746de283"
+                password "58f08525-2b55-4daf-8fbc-41c4f3c3336b"
+            }
+
+            // You can also specify system envrioment variables
+            //credentials {
+            //    username System.getenv(MYCLOUDREPO_CLIENT_USERNAME)
+            //    password System.getenv(MYCLOUDREPO_CLIENT_PASSWORD)
+            //}
+        }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
