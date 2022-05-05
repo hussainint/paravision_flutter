@@ -31,7 +31,7 @@ import com.example.paravision_flutter.R
 
 
 class MainActivity: FlutterActivity() {
-    private val CHANNEL = "testSDK/test"
+    private val CHANNEL = "comminicationNative/Flutter"
     private val TAG = "MainActivity"
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
@@ -39,9 +39,9 @@ class MainActivity: FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
       // Note: this method is invoked on the main thread.
       call, result ->
-      if (call.method == "methodName") {
-          val batteryLevel = getBatteryLevel()
-       result.success(batteryLevel)
+      if (call.method == "callPARAVISION") {
+          val response = startParavision()
+       result.success(response)
         
       } else {
         result.notImplemented()
@@ -50,7 +50,7 @@ class MainActivity: FlutterActivity() {
 
   }
 
-  private fun getBatteryLevel(): Int {
+  private fun startParavision(): String {
      
      
 
@@ -79,12 +79,13 @@ class MainActivity: FlutterActivity() {
                 Log.i(TAG, "quality=${face.quality}")
                 Log.i(TAG, "landmarks=${face.landmarks.toString()}")
                 Log.i(TAG, "embeddings=${face.embedding.toString()}")
+                return face.embedding.toString()
             }
         }
 
 
 
-    return 12
+    return "pass"
   }
 
     override fun onCreate(savedInstanceState: Bundle?) {
