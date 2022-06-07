@@ -74,10 +74,12 @@ class MainActivity: FlutterActivity() {
         if(detectedFaces!= null && detectedFaces.isNotEmpty()){
             Log.i(TAG, "There are ${detectedFaces.size} face(s) detected:")
             for((index, face) in detectedFaces.withIndex()){
+             //  val k =  faceSdkInstance.getMatchScore(face.embedding, face.embedding)
                 Log.i(TAG, "Result for face ${index+1}:")
                 Log.i(TAG, "boundingBox=${face.boundingBox.toString()}")
                 Log.i(TAG, "quality=${face.quality}")
                 Log.i(TAG, "landmarks=${face.landmarks.toString()}")
+               // Log.i(TAG, "int=${k.toString()}")
                 Log.i(TAG, "embeddings=${face.embedding.toString()}")
                 return face.embedding.toString()
             }
